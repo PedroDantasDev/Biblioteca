@@ -2,7 +2,6 @@ package com.exemplo.biblioteca.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.exemplo.biblioteca.model.Emprestimo;
@@ -12,6 +11,8 @@ import com.exemplo.biblioteca.repository.EmprestimoRepository;
 import com.exemplo.biblioteca.repository.LivroRepository;
 import com.exemplo.biblioteca.repository.UsuarioRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class EmprestimoService {
 
@@ -19,10 +20,9 @@ public class EmprestimoService {
     private final LivroRepository livroRepository;
     private final UsuarioRepository usuarioRepository;
 
-    @Autowired
     public EmprestimoService(EmprestimoRepository emprestimoRepository,
-                             LivroRepository livroRepository,
-                             UsuarioRepository usuarioRepository) {
+                            LivroRepository livroRepository,
+                            UsuarioRepository usuarioRepository) {
         this.emprestimoRepository = emprestimoRepository;
         this.livroRepository = livroRepository;
         this.usuarioRepository = usuarioRepository;
@@ -37,16 +37,25 @@ public class EmprestimoService {
                 .orElseThrow(() -> new RuntimeException("Empréstimo não encontrado"));
     }
 
+    @Transactional
     public Emprestimo createEmprestimo(Emprestimo emprestimo) {
-        Livro livro = livroRepository.findById(emprestimo.getLivro().getId())
-                .orElseThrow(() -> new RuntimeException("Livro não encontrado"));
-        Usuario usuario = usuarioRepository.findById(emprestimo.getUsuario().getId())
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
-        
-        emprestimo.setLivro(livro);
-        emprestimo.setUsuario(usuario);
-        
-        return emprestimoRepository.save(emprestimo);
+        System.out.println("Criando empréstimo no service: " + emprestimo);
+        try {
+            Livro livro = livroRepository.findById(emprestimo.getLivro().getId())
+                .orElseThrow(() -> new RuntimeException("Livro não encontrado com id " + emprestimo.getLivro().getId()));
+            Usuario usuario = usuarioRepository.findById(emprestimo.getUsuario().getId())
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado com id " + emprestimo.getUsuario().getId()));
+    
+            emprestimo.setLivro(livro);
+            emprestimo.setUsuario(usuario);
+    
+            Emprestimo savedEmprestimo = emprestimoRepository.save(emprestimo);
+            System.out.println("Empréstimo salvo com sucesso: " + savedEmprestimo);
+            return savedEmprestimo;
+        } catch (Exception e) {
+            System.err.println("Erro ao salvar empréstimo: " + e.getMessage());
+            throw e;
+        }
     }
 
     public Emprestimo updateEmprestimo(Long id, Emprestimo emprestimoAtualizado) {

@@ -8,5 +8,4 @@ import com.exemplo.biblioteca.model.Livro;
 
 public interface LivroRepository extends JpaRepository<Livro, Long> {
 
-    List<Livro> findByCategoriasAndNotEmprestadoByUsuario(List<String> categoriasEmprestadas, Long usuarioId);
-}
+    List<Livro> findByCategoriaInAndIdNotIn(List<String> categorias, List<Long> emprestadosIds);}

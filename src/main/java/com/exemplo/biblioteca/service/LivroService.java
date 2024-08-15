@@ -28,11 +28,9 @@ public class LivroService {
     }
 
     public List<Livro> getRecomendacoes(Long usuarioId) {
-        // Buscar as categorias dos livros que o usuário já pegou emprestado
         List<String> categoriasEmprestadas = emprestimoRepository.findCategoriasByUsuarioId(usuarioId);
-        
-        // Buscar livros das mesmas categorias que o usuário ainda não pegou emprestado
-        return livroRepository.findByCategoriasAndNotEmprestadoByUsuario(categoriasEmprestadas, usuarioId);
+        List<Long> livrosEmprestadosIds = emprestimoRepository.findLivrosIdsByUsuarioId(usuarioId);
+        return livroRepository.findByCategoriaInAndIdNotIn(categoriasEmprestadas, livrosEmprestadosIds);
     }
     
     public Livro saveLivro(Livro livro) {
