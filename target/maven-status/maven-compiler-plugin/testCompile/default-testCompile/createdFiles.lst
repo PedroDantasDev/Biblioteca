@@ -1,0 +1,7 @@
+com\exemplo\biblioteca\controller\UsuarioControllerTest.class
+com\exemplo\biblioteca\controller\EmprestimoControllerTest.class
+com\exemplo\biblioteca\controller\LivroControllerTest.class
+com\exemplo\biblioteca\service\RecomendacaoServiceTest.class
+com\exemplo\biblioteca\service\UsuarioServiceTest.class
+com\exemplo\biblioteca\service\EmprestimoServiceTest.class
+com\exemplo\biblioteca\service\LivroServiceTest.class

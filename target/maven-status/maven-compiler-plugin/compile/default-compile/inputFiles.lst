@@ -1,0 +1,16 @@
+C:\Users\danta\biblioteca\src\main\java\com\exemplo\biblioteca\BibliotecaApplication.java
+C:\Users\danta\biblioteca\src\main\java\com\exemplo\biblioteca\config\GoogleBooksConfig.java
+C:\Users\danta\biblioteca\src\main\java\com\exemplo\biblioteca\config\WebConfig.java
+C:\Users\danta\biblioteca\src\main\java\com\exemplo\biblioteca\controller\EmprestimoController.java
+C:\Users\danta\biblioteca\src\main\java\com\exemplo\biblioteca\controller\LivroController.java
+C:\Users\danta\biblioteca\src\main\java\com\exemplo\biblioteca\controller\UsuarioController.java
+C:\Users\danta\biblioteca\src\main\java\com\exemplo\biblioteca\model\Emprestimo.java
+C:\Users\danta\biblioteca\src\main\java\com\exemplo\biblioteca\model\Livro.java
+C:\Users\danta\biblioteca\src\main\java\com\exemplo\biblioteca\model\Usuario.java
+C:\Users\danta\biblioteca\src\main\java\com\exemplo\biblioteca\repository\EmprestimoRepository.java
+C:\Users\danta\biblioteca\src\main\java\com\exemplo\biblioteca\repository\LivroRepository.java
+C:\Users\danta\biblioteca\src\main\java\com\exemplo\biblioteca\repository\UsuarioRepository.java
+C:\Users\danta\biblioteca\src\main\java\com\exemplo\biblioteca\service\EmprestimoService.java
+C:\Users\danta\biblioteca\src\main\java\com\exemplo\biblioteca\service\LivroService.java
+C:\Users\danta\biblioteca\src\main\java\com\exemplo\biblioteca\service\RecomendacaoService.java
+C:\Users\danta\biblioteca\src\main\java\com\exemplo\biblioteca\service\UsuarioService.java

@@ -1,0 +1,16 @@
+com\exemplo\biblioteca\controller\LivroController.class
+com\exemplo\biblioteca\repository\EmprestimoRepository.class
+com\exemplo\biblioteca\model\Emprestimo.class
+com\exemplo\biblioteca\controller\EmprestimoController.class
+com\exemplo\biblioteca\controller\UsuarioController.class
+com\exemplo\biblioteca\config\GoogleBooksConfig.class
+com\exemplo\biblioteca\BibliotecaApplication.class
+com\exemplo\biblioteca\model\Livro.class
+com\exemplo\biblioteca\repository\LivroRepository.class
+com\exemplo\biblioteca\model\Usuario.class
+com\exemplo\biblioteca\repository\UsuarioRepository.class
+com\exemplo\biblioteca\service\RecomendacaoService.class
+com\exemplo\biblioteca\service\UsuarioService.class
+com\exemplo\biblioteca\service\EmprestimoService.class
+com\exemplo\biblioteca\service\LivroService.class
+com\exemplo\biblioteca\config\WebConfig.class
