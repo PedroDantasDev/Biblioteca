@@ -25,8 +25,10 @@ public class EmprestimoController {
 
     
     @GetMapping
-    public List<Emprestimo> getTodosEmprestimos() {
-        return emprestimoService.getTodosEmprestimos();
+    public ResponseEntity<List<Emprestimo>> getTodosEmprestimos() {
+        List<Emprestimo> emprestimos = emprestimoService.getTodosEmprestimos();
+        System.out.println("Empréstimos enviados: " + emprestimos);
+        return ResponseEntity.ok(emprestimos);
     }
 
     @GetMapping("/{id}")
@@ -35,18 +37,20 @@ public class EmprestimoController {
         return ResponseEntity.ok(emprestimo);
     }
 
-@PostMapping
-public ResponseEntity<Emprestimo> createEmprestimo(@RequestBody Emprestimo emprestimo) {
-    System.out.println("Recebido empréstimo para criar: " + emprestimo);
-    try {
-        Emprestimo novoEmprestimo = emprestimoService.createEmprestimo(emprestimo);
-        System.out.println("Empréstimo criado com sucesso: " + novoEmprestimo);
-        return ResponseEntity.ok(novoEmprestimo);
-    } catch (Exception e) {
-        System.err.println("Erro ao criar empréstimo: " + e.getMessage());
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    @PostMapping
+    public ResponseEntity<?> createEmprestimo(@RequestBody Emprestimo emprestimo) {
+        try {
+            System.out.println("Recebido empréstimo para criar: " + emprestimo);
+            Emprestimo novoEmprestimo = emprestimoService.createEmprestimo(emprestimo);
+            System.out.println("Empréstimo criado com sucesso: " + novoEmprestimo);
+            return ResponseEntity.ok(novoEmprestimo);
+        } catch (Exception e) {
+            System.err.println("Erro ao criar empréstimo: " + e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body("Erro ao criar empréstimo: " + e.getMessage());
+        }
     }
-}
 
     @PutMapping("/{id}")
     public ResponseEntity<Emprestimo> updateEmprestimo(@PathVariable Long id, @RequestBody Emprestimo emprestimo) {

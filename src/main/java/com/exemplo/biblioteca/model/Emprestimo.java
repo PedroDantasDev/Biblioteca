@@ -2,33 +2,32 @@ package com.exemplo.biblioteca.model;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Emprestimo {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "livro_id", nullable = false)
+    @JoinColumn(name = "livro_id")
     private Livro livro;
 
-    @ManyToOne
-    @JoinColumn(name = "usuario_id", nullable = false)
-
+    @JoinColumn(name = "usuario_id")
     private Usuario usuario;
-    private LocalDate dataEmprestimo;
-    private LocalDate dataDevolucao;
-    private String status;
 
-    public Emprestimo() {}
+    @Column(name = "data_emprestimo")
+    private LocalDate dataEmprestimo;
+
+    @Column(name = "data_devolucao")
+    private LocalDate dataDevolucao;
+
+    private String status;
 
     public Emprestimo(Usuario usuario, Livro livro, LocalDate dataEmprestimo, LocalDate dataDevolucao, String status) {
         this.usuario = usuario;
