@@ -3,6 +3,7 @@ package com.exemplo.biblioteca.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,11 +35,18 @@ public class EmprestimoController {
         return ResponseEntity.ok(emprestimo);
     }
 
-    @PostMapping
-    public ResponseEntity<Emprestimo> createEmprestimo(@RequestBody Emprestimo emprestimo) {
+@PostMapping
+public ResponseEntity<Emprestimo> createEmprestimo(@RequestBody Emprestimo emprestimo) {
+    System.out.println("Recebido empréstimo para criar: " + emprestimo);
+    try {
         Emprestimo novoEmprestimo = emprestimoService.createEmprestimo(emprestimo);
+        System.out.println("Empréstimo criado com sucesso: " + novoEmprestimo);
         return ResponseEntity.ok(novoEmprestimo);
+    } catch (Exception e) {
+        System.err.println("Erro ao criar empréstimo: " + e.getMessage());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
+}
 
     @PutMapping("/{id}")
     public ResponseEntity<Emprestimo> updateEmprestimo(@PathVariable Long id, @RequestBody Emprestimo emprestimo) {

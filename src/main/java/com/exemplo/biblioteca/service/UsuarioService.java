@@ -8,32 +8,41 @@ import org.springframework.stereotype.Service;
 import com.exemplo.biblioteca.model.Usuario;
 import com.exemplo.biblioteca.repository.UsuarioRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class UsuarioService {
+
     @Autowired
-    private UsuarioRepository repositorio;
+    private UsuarioRepository usuarioRepository;
 
     public List<Usuario> getTodosUsuarios() {
-        return repositorio.findAll();
+        return usuarioRepository.findAll();
     }
 
     public Usuario getUsuarioPorId(Long id) {
-        return repositorio.findById(id).orElse(null);
+        return usuarioRepository.findById(id).orElse(null);
     }
 
     public Usuario createUsuario(Usuario usuario) {
-        return repositorio.save(usuario);
+        return usuarioRepository.save(usuario);
     }
 
-    public Usuario updateUsuario(Long id, Usuario detalhesUsuario) {
-        Usuario usuario = getUsuarioPorId(id);
-        if (usuario != null) {
-            return repositorio.save(usuario);
-        }
-        return null;
-    }
+    @Transactional
+    public Usuario updateUsuario(Long id, Usuario usuarioDetails) {
+        Usuario usuario = usuarioRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Usuário não encontrado com id " + id));
+    
+        usuario.setNome(usuarioDetails.getNome());
+        usuario.setEmail(usuarioDetails.getEmail());
+        usuario.setTelefone(usuarioDetails.getTelefone());
+        usuario.setDataCadastro(usuarioDetails.getDataCadastro());
 
+
+    
+        return usuarioRepository.save(usuario);
+    }
     public void deleteUsuario(Long id) {
-        repositorio.deleteById(id);
+        usuarioRepository.deleteById(id);
     }
 }

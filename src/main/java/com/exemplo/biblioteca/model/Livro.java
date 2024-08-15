@@ -21,7 +21,6 @@ public class Livro {
     private LocalDate dataPublicacao;
     private String categoria;
 
-    // Getters and setters
     public Long getId() {
         return id;
     }

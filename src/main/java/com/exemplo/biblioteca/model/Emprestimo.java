@@ -28,7 +28,6 @@ public class Emprestimo {
     private LocalDate dataDevolucao;
     private String status;
 
-    // Constructors
     public Emprestimo() {}
 
     public Emprestimo(Usuario usuario, Livro livro, LocalDate dataEmprestimo, LocalDate dataDevolucao, String status) {
@@ -39,7 +38,6 @@ public class Emprestimo {
         this.status = status;
     }
 
-    // Getters and Setters
     public Long getId() {
         return id;
     }

@@ -39,12 +39,11 @@ public class UsuarioController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Usuario> updateUsuario(@PathVariable Long id, @RequestBody Usuario detalhesUsuario) {
-        Usuario updateUsuario = usuarioService.updateUsuario(id, detalhesUsuario);
-        if (updateUsuario != null) {
-            return ResponseEntity.ok(updateUsuario);
-        }
-        return ResponseEntity.notFound().build();
+    public ResponseEntity<Usuario> updateUsuario(@PathVariable Long id, @RequestBody Usuario usuario) {
+        System.out.println("Recebido usuário para atualizar: " + usuario);
+        Usuario updatedUsuario = usuarioService.updateUsuario(id, usuario);
+        System.out.println("Usuário atualizado: " + updatedUsuario);
+        return ResponseEntity.ok(updatedUsuario);
     }
 
     @DeleteMapping("/{id}")
