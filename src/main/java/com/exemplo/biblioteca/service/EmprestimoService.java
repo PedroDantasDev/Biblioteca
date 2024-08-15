@@ -39,12 +39,15 @@ public class EmprestimoService {
 
     @Transactional
     public Emprestimo createEmprestimo(Emprestimo emprestimo) {
-        System.out.println("Criando empréstimo no service: " + emprestimo);
+        System.out.println("Criando empréstimo: " + emprestimo);
         try {
             Livro livro = livroRepository.findById(emprestimo.getLivro().getId())
                 .orElseThrow(() -> new RuntimeException("Livro não encontrado com id " + emprestimo.getLivro().getId()));
+            System.out.println("Livro encontrado: " + livro);
+    
             Usuario usuario = usuarioRepository.findById(emprestimo.getUsuario().getId())
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado com id " + emprestimo.getUsuario().getId()));
+            System.out.println("Usuário encontrado: " + usuario);
     
             emprestimo.setLivro(livro);
             emprestimo.setUsuario(usuario);
@@ -54,7 +57,8 @@ public class EmprestimoService {
             return savedEmprestimo;
         } catch (Exception e) {
             System.err.println("Erro ao salvar empréstimo: " + e.getMessage());
-            throw e;
+            e.printStackTrace();
+            throw new RuntimeException("Erro ao salvar empréstimo: " + e.getMessage(), e);
         }
     }
 
