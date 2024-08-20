@@ -46,7 +46,6 @@ public class EmprestimoController {
             return ResponseEntity.ok(novoEmprestimo);
         } catch (Exception e) {
             System.err.println("Erro ao criar empréstimo: " + e.getMessage());
-            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body("Erro ao criar empréstimo: " + e.getMessage());
         }

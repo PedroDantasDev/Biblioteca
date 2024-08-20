@@ -1,14 +1,16 @@
 package com.exemplo.biblioteca.service;
 
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import static org.mockito.Mockito.when;
 import org.mockito.MockitoAnnotations;
 
 import com.exemplo.biblioteca.model.Emprestimo;
@@ -45,7 +47,7 @@ class RecomendacaoServiceTest {
         teste2.setId(2L);
         teste2.setCategoria("Ficção");
 
-        Emprestimo emprestimo = new Emprestimo();
+        Emprestimo emprestimo = new Emprestimo(testeUsuario, teste1, LocalDate.now(), LocalDate.now().plusDays(14), "ATIVO");
         emprestimo.setUsuario(testeUsuario);
         emprestimo.setLivro(teste1);
 

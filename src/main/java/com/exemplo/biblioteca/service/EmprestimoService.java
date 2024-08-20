@@ -57,33 +57,31 @@ public class EmprestimoService {
             return savedEmprestimo;
         } catch (Exception e) {
             System.err.println("Erro ao salvar empréstimo: " + e.getMessage());
-            e.printStackTrace();
             throw new RuntimeException("Erro ao salvar empréstimo: " + e.getMessage(), e);
         }
     }
 
-    public Emprestimo updateEmprestimo(Long id, Emprestimo emprestimoAtualizado) {
+    public Emprestimo updateEmprestimo(Long id, Emprestimo emprestimo) {
         return emprestimoRepository.findById(id)
-                .map(emprestimo -> {
-                    emprestimo.setDataEmprestimo(emprestimoAtualizado.getDataEmprestimo());
-                    emprestimo.setDataDevolucao(emprestimoAtualizado.getDataDevolucao());
-                    emprestimo.setStatus(emprestimoAtualizado.getStatus());
-                    
-                    if (emprestimoAtualizado.getLivro() != null) {
-                        Livro livro = livroRepository.findById(emprestimoAtualizado.getLivro().getId())
-                                .orElseThrow(() -> new RuntimeException("Livro não encontrado"));
-                        emprestimo.setLivro(livro);
-                    }
-                    
-                    if (emprestimoAtualizado.getUsuario() != null) {
-                        Usuario usuario = usuarioRepository.findById(emprestimoAtualizado.getUsuario().getId())
-                                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
-                        emprestimo.setUsuario(usuario);
-                    }
-                    
-                    return emprestimoRepository.save(emprestimo);
-                })
-                .orElseThrow(() -> new RuntimeException("Empréstimo não encontrado"));
+            .map(existingEmprestimo -> {
+                if (emprestimo.getUsuario() != null) {
+                    existingEmprestimo.setUsuario(emprestimo.getUsuario());
+                }
+                if (emprestimo.getLivro() != null) {
+                    existingEmprestimo.setLivro(emprestimo.getLivro());
+                }
+                if (emprestimo.getDataEmprestimo() != null) {
+                    existingEmprestimo.setDataEmprestimo(emprestimo.getDataEmprestimo());
+                }
+                if (emprestimo.getDataDevolucao() != null) {
+                    existingEmprestimo.setDataDevolucao(emprestimo.getDataDevolucao());
+                }
+                if (emprestimo.getStatus() != null) {
+                    existingEmprestimo.setStatus(emprestimo.getStatus());
+                }
+                return emprestimoRepository.save(existingEmprestimo);
+            })
+            .orElseThrow(() -> new RuntimeException("Empréstimo não encontrado"));
     }
 
     public void deleteEmprestimo(Long id) {
