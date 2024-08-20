@@ -47,7 +47,7 @@ class EmprestimoControllerTest {
         livro.setId(1L);
         livro.setTitulo("Teste Livro");
 
-        testeEmprestimo = new Emprestimo();
+        testeEmprestimo = new Emprestimo(usuario, livro, LocalDate.of(2023, 1, 1), LocalDate.of(2023, 1, 15), "ATIVO");
         testeEmprestimo.setId(1L);
         testeEmprestimo.setUsuario(usuario);
         testeEmprestimo.setLivro(livro);

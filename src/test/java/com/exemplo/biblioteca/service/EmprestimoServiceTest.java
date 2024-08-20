@@ -47,18 +47,13 @@ class EmprestimoServiceTest {
         testeUsuario = new Usuario();
         testeUsuario.setId(1L);
         testeUsuario.setNome("João Gomes");
-
+    
         testeLivro = new Livro();
         testeLivro.setId(1L);
         testeLivro.setTitulo("Teste Livro");
-
-        testeEmprestimo = new Emprestimo();
+    
+        testeEmprestimo = new Emprestimo(testeUsuario, testeLivro, LocalDate.of(2023, 1, 1), LocalDate.of(2023, 1, 15), "ATIVO");
         testeEmprestimo.setId(1L);
-        testeEmprestimo.setUsuario(testeUsuario);
-        testeEmprestimo.setLivro(testeLivro);
-        testeEmprestimo.setDataEmprestimo(LocalDate.of(2023, 1, 1));
-        testeEmprestimo.setDataDevolucao(LocalDate.of(2023, 1, 15));
-        testeEmprestimo.setStatus("ATIVO");
     }
 
     @Test
@@ -92,15 +87,20 @@ class EmprestimoServiceTest {
 
     @Test
     void updateEmprestimo() {
-        Emprestimo updatedEmprestimo = new Emprestimo();
-        updatedEmprestimo.setStatus("DEVOLVIDO");
+        Emprestimo updatedEmprestimo = new Emprestimo(testeUsuario, testeLivro, LocalDate.now(), LocalDate.now().plusDays(14), "DEVOLVIDO");
         
         when(emprestimoRepository.findById(1L)).thenReturn(Optional.of(testeEmprestimo));
+        
         when(emprestimoRepository.save(any(Emprestimo.class))).thenReturn(updatedEmprestimo);
         
         Emprestimo result = emprestimoService.updateEmprestimo(1L, updatedEmprestimo);
         
         assertEquals("DEVOLVIDO", result.getStatus());
+        assertEquals(updatedEmprestimo.getUsuario(), result.getUsuario());
+        assertEquals(updatedEmprestimo.getLivro(), result.getLivro());
+        assertEquals(updatedEmprestimo.getDataEmprestimo(), result.getDataEmprestimo());
+        assertEquals(updatedEmprestimo.getDataDevolucao(), result.getDataDevolucao());
+
         verify(emprestimoRepository).findById(1L);
         verify(emprestimoRepository).save(any(Emprestimo.class));
     }
