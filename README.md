@@ -24,7 +24,7 @@ spring.datasource.username=sa
 spring.datasource.password=password
 spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
 spring.h2.console.enabled=true
-
+O banco estará rodando em http://localhost:8080/h2-console.
 
 
 Compile o projeto:
